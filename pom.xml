@@ -15,35 +15,45 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
+
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
     <version>97</version>
   </parent>
+
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-cli</groupId>
   <artifactId>commons-cli</artifactId>
   <version>1.11.1-SNAPSHOT</version>
   <name>Apache Commons CLI</name>
   <inceptionYear>2002</inceptionYear>
+
   <description>
     Apache Commons CLI provides a simple API for presenting, processing, and validating a Command Line Interface.
   </description>
+
   <url>https://commons.apache.org/proper/commons-cli/</url>
+
   <issueManagement>
     <url>https://issues.apache.org/jira/browse/CLI</url>
   </issueManagement>
+
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-cli.git</developerConnection>
     <url>https://gitbox.apache.org/repos/asf?p=commons-cli.git</url>
     <tag>rel/common-${commons.componentid}-${commons.release.version}</tag>
   </scm>
+
   <ciManagement>
     <system>GitHub</system>
     <url>https://github.com/apache/commons-cli/actions</url>
   </ciManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -83,9 +93,23 @@
       <version>${commons.mockito.version}</version>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.evosuite</groupId>
+      <artifactId>evosuite-standalone-runtime</artifactId>
+      <version>${evosuite.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <properties>
-    <!-- project.build.outputTimestamp is managed by Maven plugins, see https://maven.apache.org/guides/mini/guide-reproducible-builds.html -->
     <project.build.outputTimestamp>2025-11-12T21:37:53Z</project.build.outputTimestamp>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -103,7 +127,7 @@
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-cli</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
-    <!-- JaCoCo: Don't make code coverage worse than: -->
+
     <commons.jacoco.haltOnFailure>true</commons.jacoco.haltOnFailure>
     <commons.jacoco.classRatio>1.00</commons.jacoco.classRatio>
     <commons.jacoco.instructionRatio>0.98</commons.jacoco.instructionRatio>
@@ -111,9 +135,21 @@
     <commons.jacoco.branchRatio>0.95</commons.jacoco.branchRatio>
     <commons.jacoco.lineRatio>0.98</commons.jacoco.lineRatio>
     <commons.jacoco.complexityRatio>0.94</commons.jacoco.complexityRatio>
+
+    <evosuite.version>1.0.6</evosuite.version>
   </properties>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>EvoSuite</id>
+      <name>EvoSuite Repository</name>
+      <url>https://www.evosuite.org/m2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
   <build>
     <defaultGoal>clean verify apache-rat:check japicmp:cmp checkstyle:check spotbugs:check pmd:check javadoc:javadoc</defaultGoal>
+
     <pluginManagement>
       <plugins>
         <plugin>
@@ -125,14 +161,18 @@
             <enableRulesSummary>false</enableRulesSummary>
             <includeTestSourceDirectory>true</includeTestSourceDirectory>
           </configuration>
-        </plugin>      
-      <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <configuration>
-          <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
-        </configuration>
-      </plugin>
+        </plugin>
+
+        <plugin>
+          <groupId>com.github.spotbugs</groupId>
+          <artifactId>spotbugs-maven-plugin</artifactId>
+          <!--
+          <configuration>
+            <excludeFilterFile>${basedir}/src/conf/spotbugs-exclude-filter.xml</excludeFilterFile>
+          </configuration>
+          -->
+        </plugin>
+
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-scm-publish-plugin</artifactId>
@@ -144,15 +184,18 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
       </plugin>
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
@@ -163,12 +206,116 @@
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>com.github.siom79.japicmp</groupId>
         <artifactId>japicmp-maven-plugin</artifactId>
       </plugin>
+
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.7</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.14.0</version>
+        <configuration>
+          <targetClasses>
+            <param>org.apache.commons.cli.AlreadySelectedException</param>
+            <param>org.apache.commons.cli.BasicParser</param>
+            <param>org.apache.commons.cli.Util</param>
+            <param>org.apache.commons.cli.Option</param>
+            <param>org.apache.commons.cli.CommandLine</param>
+            <param>org.apache.commons.cli.OptionValidator</param>
+            <param>org.apache.commons.cli.PatternOptionBuilder</param>
+            <param>org.apache.commons.cli.DefaultParser</param>
+            <param>org.apache.commons.cli.DeprecatedAttributes</param>
+            <param>org.apache.commons.cli.GnuParser</param>
+          </targetClasses>
+          <targetTests>
+            <param>org.apache.commons.cli.*</param>
+          </targetTests>
+          <threads>1</threads>
+          <timeoutFactor>4</timeoutFactor>
+          <outputFormats>
+            <param>HTML</param>
+            <param>XML</param>
+          </outputFormats>
+          <verbose>true</verbose>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.evosuite.plugins</groupId>
+        <artifactId>evosuite-maven-plugin</artifactId>
+        <version>${evosuite.version}</version>
+        <configuration>
+          <targetClasses>
+            <param>org.apache.commons.cli.AlreadySelectedException</param>
+            <param>org.apache.commons.cli.AmbiguousOptionException</param>
+            <param>org.apache.commons.cli.CommandLine</param>
+            <param>org.apache.commons.cli.HelpFormatter</param>
+            <param>org.apache.commons.cli.MissingArgumentException</param>
+            <param>org.apache.commons.cli.MissingOptionException</param>
+            <param>org.apache.commons.cli.Option</param>
+            <param>org.apache.commons.cli.OptionGroup</param>
+            <param>org.apache.commons.cli.Options</param>
+            <param>org.apache.commons.cli.Util</param>
+          </targetClasses>
+
+          <criterion>LINE:BRANCH</criterion>
+          <search_budget>60</search_budget>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
+          <properties>
+            <property>
+              <name>listener</name>
+              <value>org.evosuite.runtime.InitializingListener</value>
+            </property>
+          </properties>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
   <reporting>
     <plugins>
       <plugin>
@@ -178,26 +325,40 @@
           <linksource>true</linksource>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
       </plugin>
+
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
+        <version>4.8.6.6</version>
+        <configuration>
+          <effort>Max</effort>
+          <threshold>Low</threshold>
+          <htmlOutput>true</htmlOutput>
+          <xmlOutput>false</xmlOutput>
+        </configuration>
       </plugin>
+
+      
+
       <plugin>
         <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
           <targetJdk>${maven.compiler.target}</targetJdk>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>com.github.siom79.japicmp</groupId>
         <artifactId>japicmp-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
+
   <distributionManagement>
     <site>
       <id>apache.website</id>
@@ -205,11 +366,11 @@
       <url>scm:svn:${commons.scmPubUrl}</url>
     </site>
   </distributionManagement>
+
   <profiles>
     <profile>
       <id>rc</id>
       <distributionManagement>
-        <!-- Cannot define in parent ATM, see COMMONSSITE-26 -->
         <site>
           <id>apache.website</id>
           <name>Apache Commons Release Candidate Staging Site</name>
@@ -217,6 +378,7 @@
         </site>
       </distributionManagement>
     </profile>
+
     <profile>
       <id>setup-checkout</id>
       <activation>
@@ -259,6 +421,7 @@
       </build>
     </profile>
   </profiles>
+
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -325,6 +488,7 @@
       </properties>
     </developer>
   </developers>
+
   <contributors>
     <contributor>
       <name>Beluga Behr</name>

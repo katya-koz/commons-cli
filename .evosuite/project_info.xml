@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Project>
+    <totalNumberOfTestableClasses>1</totalNumberOfTestableClasses>
+    <cut>
+        <fullNameOfTargetClass>org.apache.commons.cli.CommandLine</fullNameOfTargetClass>
+        <fullNameOfTestSuite>org.apache.commons.cli.CommandLine_ESTest</fullNameOfTestSuite>
+        <generation>
+            <id>0</id>
+            <failed>false</failed>
+            <modified>true</modified>
+            <timeBudgetInSeconds>120</timeBudgetInSeconds>
+            <memoryInMB>800</memoryInMB>
+            <std_err_CLIENT>C:\Users\Katyousha\Documents\University\Third Year\4313\hw2\.evosuite\tmp_2026_03_22_17_25_22\logs\org.apache.commons.cli.CommandLine\std_err_CLIENT.log</std_err_CLIENT>
+            <std_out_CLIENT>C:\Users\Katyousha\Documents\University\Third Year\4313\hw2\.evosuite\tmp_2026_03_22_17_25_22\logs\org.apache.commons.cli.CommandLine\std_out_CLIENT.log</std_out_CLIENT>
+            <std_err_MASTER>C:\Users\Katyousha\Documents\University\Third Year\4313\hw2\.evosuite\tmp_2026_03_22_17_25_22\logs\org.apache.commons.cli.CommandLine\std_err_MASTER.log</std_err_MASTER>
+            <std_out_MASTER>C:\Users\Katyousha\Documents\University\Third Year\4313\hw2\.evosuite\tmp_2026_03_22_17_25_22\logs\org.apache.commons.cli.CommandLine\std_out_MASTER.log</std_out_MASTER>
+            <suite>
+                <fullPathOfTestSuite>C:\Users\Katyousha\Documents\University\Third Year\4313\hw2\.evosuite\tmp_2026_03_22_17_25_22\tests\org\apache\commons\cli\CommandLine_ESTest.java</fullPathOfTestSuite>
+                <numberOfTests>50</numberOfTests>
+                <totalNumberOfStatements>197</totalNumberOfStatements>
+                <totalEffortInSeconds>77</totalEffortInSeconds>
+                <coverage>
+                    <criterion>LineCoverage</criterion>
+                    <coverageValue>0.96</coverageValue>
+                    <coverageBitString>01111111111111111111111000111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111</coverageBitString>
+                </coverage>
+                <coverage>
+                    <criterion>BranchCoverage</criterion>
+                    <coverageValue>0.97</coverageValue>
+                    <coverageBitString>01111111111111111111111111111111111111111111111111111111111111111101111111111111111111111111111111111111111111011</coverageBitString>
+                </coverage>
+            </suite>
+        </generation>
+    </cut>
+</Project>
